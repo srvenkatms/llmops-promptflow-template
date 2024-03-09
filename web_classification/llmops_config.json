@@ -14,7 +14,7 @@
                     "RUNTIME_NAME": "",
                     "KEYVAULT_NAME": "",
                     "RESOURCE_GROUP_NAME": "",
-                    "WORKSPACE_NAME": "",
+                    "WORKSPACE_NAME": "Test",
                     "STANDARD_FLOW_PATH": "flows/experiment",
                     "EVALUATION_FLOW_PATH": "flows/evaluation, flows/evaluation_adv"
                 }
