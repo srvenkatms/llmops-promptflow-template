@@ -11,10 +11,10 @@
             },
             {
                 "ENV_NAME": "dev",
-                "RUNTIME_NAME": "",
-                "KEYVAULT_NAME": "",
-                "RESOURCE_GROUP_NAME": "",
-                "WORKSPACE_NAME": "",
+                "RUNTIME_NAME": "pfruntime",
+                "KEYVAULT_NAME": "LFitnessKeyVault",
+                "RESOURCE_GROUP_NAME": "opanaivector",
+                "WORKSPACE_NAME": "LFitness",
                 "STANDARD_FLOW_PATH": "flows/standard",
                 "EVALUATION_FLOW_PATH": "flows/evaluation"
             },
