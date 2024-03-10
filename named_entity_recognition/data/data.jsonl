@@ -1,4 +1,4 @@
-{"text": "The software engineer is working on a new update for the application.", "entity_type": "job title", "results": "software engineer"}
+{"text": "The software engineer is working on a new update for the applications.", "entity_type": "job title", "results": "software engineer"}
 {"text": "The project manager and the data analyst are collaborating to interpret the project data.", "entity_type": "job title", "results": "project manager, data analyst"}
 {"text": "The marketing manager is coordinating with the graphic designer to create a new advertisement campaign.", "entity_type": "job title", "results": "marketing manager, graphic designer"}
 {"text": "The CEO and CFO are discussing the financial forecast for the next quarter.", "entity_type": "job title", "results": "CEO, CFO"}
