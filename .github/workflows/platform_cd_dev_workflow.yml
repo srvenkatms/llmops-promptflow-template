@@ -45,6 +45,9 @@ jobs:
   flow-deployment:
     name: prompt flow deployment job
     runs-on: ubuntu-latest
+    environment: 
+      name: 'Development'
+      url: ${{ steps.deployment.outputs.url }}
     steps:
       - name: Checkout Actions
         uses: actions/checkout@v4
