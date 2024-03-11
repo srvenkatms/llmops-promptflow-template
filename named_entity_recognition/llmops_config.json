@@ -12,7 +12,7 @@
             {
                 "ENV_NAME": "dev",
                 "RUNTIME_NAME": "llmopsruntime",
-                "KEYVAULT_NAME": "LFitnessKeyVault",
+                "KEYVAULT_NAME": "llmkeyvault01",
                 "RESOURCE_GROUP_NAME": "opanaivector",
                 "WORKSPACE_NAME": "LFitness",
                 "STANDARD_FLOW_PATH": "flows/standard",
