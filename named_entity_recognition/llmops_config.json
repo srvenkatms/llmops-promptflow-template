@@ -11,7 +11,7 @@
             },
             {
                 "ENV_NAME": "dev",
-                "RUNTIME_NAME": "",
+                "RUNTIME_NAME": "llmopsruntime",
                 "KEYVAULT_NAME": "LFitnessKeyVault",
                 "RESOURCE_GROUP_NAME": "opanaivector",
                 "WORKSPACE_NAME": "LFitness",
