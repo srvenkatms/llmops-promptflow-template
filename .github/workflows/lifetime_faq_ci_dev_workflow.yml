@@ -1,4 +1,4 @@
-name: named_entity_recognition_ci_dev_pipeline
+name: lifetime_faq_ci_dev_pipeline
 
 on:
   workflow_call:
@@ -12,7 +12,7 @@ on:
         type: string
         description: "The flow usecase to execute"
         required: true
-        default: "named_entity_recognition"
+        default: "lifetime_faq"
       deployment_type:
         type: string
         description: "Determine type of deployment - aml, aks, docker, webapp"
@@ -25,7 +25,7 @@ on:
     paths:
       - '.github/**'
       - 'llmops/**'
-      - 'named_entity_recognition/**'
+      - 'lifetime_faq/**'
 
 #=====================================
 # Execute platform_ci_dev_workflow workflow for experiment, evaluation and deployment of flows
@@ -35,7 +35,7 @@ jobs:
     uses: ./.github/workflows/platform_ci_dev_workflow.yml
     with:
       env_name: ${{ inputs.env_name || 'dev'}}
-      flow_type: ${{ inputs.flow_type || 'named_entity_recognition' }}
+      flow_type: ${{ inputs.flow_type || 'lifetime_faq' }}
       deployment_type: ${{ inputs.deployment_type|| 'aml' }}
     secrets:
       azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
