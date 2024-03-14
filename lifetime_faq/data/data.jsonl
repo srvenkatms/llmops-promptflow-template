@@ -7,7 +7,5 @@
             "output": "Hello,How can I help you"
         }
     },
-    "question": "What is required for adult guests (18+) using a member guest pass?",
-    "answer": "They must complete and sign a guest registration and present a valid driver’s license or government issued identification card.",
-    "context": "Adult guests (18+) using a member guest pass must complete and sign a guest registration and present a valid driver’s license or government issued identification card."
+    "question": "What is required for adult guests (18+) using a member guest pass?"
 }
