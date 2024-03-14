@@ -3,7 +3,7 @@
         
             {
                 "ENV_NAME": "dev",
-                "RUNTIME_NAME": "lfruntimefaqruntime",
+                "RUNTIME_NAME": "pfruntime",
                 "KEYVAULT_NAME": "llmkeyvault01",
                 "RESOURCE_GROUP_NAME": "opanaivector",
                 "WORKSPACE_NAME": "LFitness",
