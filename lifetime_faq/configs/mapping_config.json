@@ -1,6 +1,7 @@
 {
     "experiment": {
         "question": "${data.question}"
+         "chat_history": "${data.chat_history}"
     },
     "evaluation": {
         "math_evaluation_flow": {
