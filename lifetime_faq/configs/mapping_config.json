@@ -4,7 +4,7 @@
          "chat_history": "${data.chat_history}"
     },
     "evaluation": {
-        "math_evaluation_flow": {
+        "evaluation": {
             "question": "${data.question}",
             "context": "${data.context}",
             "answer": "${run.outputs.answer}"
