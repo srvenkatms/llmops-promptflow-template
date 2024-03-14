@@ -1,0 +1,13 @@
+{
+    "experiment": {
+        "question": "${data.question}"
+    },
+    "evaluation": {
+        "math_evaluation_flow": {
+            "questions": "${data.questions}",
+            "context": "${data.context}",
+            "answer": "${run.outputs.answer}"
+        }
+    }
+
+}

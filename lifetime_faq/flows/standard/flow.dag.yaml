@@ -1,0 +1,176 @@
+inputs:
+  question:
+    type: string
+    is_chat_input: true
+  chat_history:
+    type: list
+    is_chat_input: false
+    is_chat_history: true
+outputs:
+  output:
+    type: string
+    reference: ${answer_the_question_with_context.output}
+    evaluation_only: false
+    is_chat_output: true
+nodes:
+- name: modify_query_with_history
+  type: llm
+  source:
+    type: code
+    path: modify_query_with_history.jinja2
+  inputs:
+    deployment_name: gpt-35-turbo-16k
+    temperature: 1
+    top_p: 1
+    max_tokens: 1000
+    response_format:
+      type: text
+    presence_penalty: 0
+    frequency_penalty: 0
+    chat_history: ${inputs.chat_history}
+    question: ${flow.question}
+  provider: AzureOpenAI
+  connection: aoai
+  api: chat
+  module: promptflow.tools.aoai
+  use_variants: false
+- name: lookup_question_from_indexed_docs
+  type: python
+  source:
+    type: package
+    tool: promptflow_vectordb.tool.common_index_lookup.search
+  inputs:
+    mlindex_content: >
+      embeddings:
+        api_base: https://vectorsearch003east.openai.azure.com/
+        api_type: azure
+        api_version: 2023-07-01-preview
+        batch_size: '16'
+        connection:
+          id: /subscriptions/ac616a3b-53be-4cbf-961c-5467b1590718/resourceGroups/opanaivector/providers/Microsoft.MachineLearningServices/workspaces/LFitness/connections/aoai
+        connection_type: workspace_connection
+        deployment: text-embedding-ada-002
+        dimension: 1536
+        file_format_version: '2'
+        kind: open_ai
+        model: text-embedding-ada-002
+        schema_version: '2'
+      index:
+        api_version: 2023-07-01-preview
+        connection:
+          id: /subscriptions/ac616a3b-53be-4cbf-961c-5467b1590718/resourceGroups/opanaivector/providers/Microsoft.MachineLearningServices/workspaces/LFitness/connections/dotnetsearch
+        connection_type: workspace_connection
+        endpoint: https://dotnetsearch.search.windows.net
+        engine: azure-sdk
+        field_mapping:
+          content: content
+          embedding: contentVector
+          filename: filepath
+          metadata: meta_json_string
+          title: title
+          url: url
+        index: lfvector
+        kind: acs
+        semantic_configuration_name: azureml-default
+    queries: ${modify_query_with_history.output}
+    query_type: Vector
+    top_k: 6
+  use_variants: false
+- name: generate_prompt_context
+  type: python
+  source:
+    type: code
+    path: generate_prompt_context.py
+  inputs:
+    search_result: ${lookup_question_from_indexed_docs.output}
+  aggregation: false
+  use_variants: false
+- name: Prompt_variants
+  type: prompt
+  source:
+    type: code
+    path: Prompt_variants__Variant_0.jinja2
+  inputs:
+    chat_history: ${flow.chat_history}
+    contexts: ${generate_prompt_context.output}
+    question: ${flow.question}
+  aggregation: false
+  use_variants: false
+- name: answer_the_question_with_context
+  use_variants: true
+- name: genjsonl
+  type: python
+  source:
+    type: code
+    path: genjsonl.py
+  inputs:
+    answer: ${Prompt_variants.output}
+    chatlist: ${inputs.chat_history}
+    question: ${inputs.question}
+  use_variants: false
+node_variants:
+  answer_the_question_with_context:
+    default_variant_id: variant_0
+    variants:
+      variant_0:
+        node:
+          name: answer_the_question_with_context
+          type: llm
+          source:
+            type: code
+            path: answer_the_question_with_context.jinja2
+          inputs:
+            deployment_name: gpt-35-turbo-16k
+            temperature: 0
+            top_p: 1
+            max_tokens: 1000
+            presence_penalty: 0
+            frequency_penalty: 0
+            prompt_text: ${Prompt_variants.output}
+          provider: AzureOpenAI
+          connection: aoai
+          api: chat
+          module: promptflow.tools.aoai
+          aggregation: false
+      variant_1:
+        node:
+          name: answer_the_question_with_context
+          type: llm
+          source:
+            type: code
+            path: answer_the_question_with_context__variant_1.jinja2
+          inputs:
+            deployment_name: gpt-35-turbo-16k
+            temperature: 0.5
+            top_p: 1
+            max_tokens: 500
+            presence_penalty: 0
+            frequency_penalty: 0
+            prompt_text: ${Prompt_variants.output}
+          provider: AzureOpenAI
+          connection: aoai
+          api: chat
+          module: promptflow.tools.aoai
+          aggregation: false
+      variant_2:
+        node:
+          name: answer_the_question_with_context
+          type: llm
+          source:
+            type: code
+            path: answer_the_question_with_context__variant_2.jinja2
+          inputs:
+            deployment_name: gpt-35-turbo-16k
+            temperature: 1
+            top_p: 1
+            max_tokens: 500
+            presence_penalty: 0
+            frequency_penalty: 0
+            prompt_text: ${Prompt_variants.output}
+          provider: AzureOpenAI
+          connection: aoai
+          api: chat
+          module: promptflow.tools.aoai
+          aggregation: false
+environment:
+  python_requirements_txt: requirements.txt
