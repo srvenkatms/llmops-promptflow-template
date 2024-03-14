@@ -4,7 +4,7 @@
     },
     "evaluation": {
         "math_evaluation_flow": {
-            "questions": "${data.questions}",
+            "question": "${data.question}",
             "context": "${data.context}",
             "answer": "${run.outputs.answer}"
         }
