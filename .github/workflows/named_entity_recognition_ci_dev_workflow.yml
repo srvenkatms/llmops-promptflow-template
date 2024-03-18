@@ -20,8 +20,8 @@ on:
         default: "aml"
   push:
     branches:
-      - main
-      - development
+      - lftimedev
+     
     paths:
       - '.github/**'
       - 'llmops/**'
